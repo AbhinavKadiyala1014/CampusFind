@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="description" content="CampusFind helps college students report and recover lost and found items.">
+  <title>CampusFind | Lost & Found</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#" class="logo">
+        <span class="logo-icon">C</span>
+        <span>CampusFind</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#browse">Browse Items</a>
+        <a href="#report">Report Item</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a href="#report" class="button nav-button">Report an Item</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <span class="eyebrow">YOUR CAMPUS, CONNECTED</span>
+          <h1>Lost something? <span>Find it here.</span></h1>
+          <p>
+            CampusFind helps students report lost belongings,
+            find recovered items, and reconnect people with
+            the things that matter.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#browse" class="button">Browse Items</a>
+            <a href="#report" class="button secondary">Report an Item</a>
+          </div>
+
+          <div class="hero-note">
+            <span class="status-dot"></span>
+            A simple community-powered lost and found platform
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="visual-circle"></div>
+          <div class="visual-card visual-card-one">
+            <span class="visual-emoji">🎒</span>
+            <div>
+              <strong>Lost backpack</strong>
+              <small>Library</small>
+            </div>
+          </div>
+          <div class="visual-card visual-card-two">
+            <span class="visual-emoji">🔑</span>
+            <div>
+              <strong>Found keys</strong>
+              <small>College campus</small>
+            </div>
+          </div>
+          <div class="visual-center">🔎</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats-section">
+      <div class="container stats-grid">
+        <div class="stat-card">
+          <span class="stat-icon">📋</span>
+          <div>
+            <h2 id="total-reports">0</h2>
+            <p>Total Reports</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-icon">🔍</span>
+          <div>
+            <h2 id="lost-count">0</h2>
+            <p>Lost Items</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <span class="stat-icon">🎉</span>
+          <div>
+            <h2 id="found-count">0</h2>
+            <p>Found Items</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Browse Items -->
+    <section class="section browse-section" id="browse">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">ITEM DIRECTORY</span>
+            <h2>Browse Lost & Found Items</h2>
+            <p>Search reports to find a missing belonging or identify an item.</p>
+          </div>
+        </div>
+
+        <div class="filters">
+          <div class="search-field">
+            <span aria-hidden="true">🔎</span>
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Search items, descriptions or locations..."
+              aria-label="Search items"
+            >
+          </div>
+
+          <select id="type-filter" aria-label="Filter by report type">
+            <option value="all">All Reports</option>
+            <option value="Lost">Lost Items</option>
+            <option value="Found">Found Items</option>
+          </select>
+
+          <select id="category-filter" aria-label="Filter by category">
+            <option value="all">All Categories</option>
+            <option value="Electronics">Electronics</option>
+            <option value="ID Cards">ID Cards</option>
+            <option value="Books & Notes">Books & Notes</option>
+            <option value="Bags">Bags</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Keys">Keys</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div id="loading-message" class="loading-message">
+          Loading reports...
+        </div>
+
+        <div id="items-grid" class="items-grid">
+          <!-- Reports are loaded from Firestore by app.js -->
+        </div>
+
+        <div id="empty-state" class="empty-state" hidden>
+          <div class="empty-icon">🔎</div>
+          <h3>No items found</h3>
+          <p>Try another search or be the first to report an item.</p>
+          <a href="#report" class="button">Report an Item</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Report Form -->
+    <section class="section report-section" id="report">
+      <div class="container report-layout">
+        <div class="report-intro">
+          <span class="eyebrow">MAKE A DIFFERENCE</span>
+          <h2>Report a Lost or Found Item</h2>
+          <p>
+            Provide accurate details to help the owner identify
+            and recover their belongings.
+          </p>
+
+          <div class="report-tip">
+            <span>💡</span>
+            <div>
+              <strong>Helpful tip</strong>
+              <p>Include the date and location where the item was lost or found.</p>
+            </div>
+          </div>
+
+          <div class="report-tip">
+            <span>🔒</span>
+            <div>
+              <strong>Protect personal information</strong>
+              <p>Don't include passwords, private documents, or sensitive ID details in photos.</p>
+            </div>
+          </div>
+        </div>
+
+        <form id="report-form" class="report-form">
+          <h3>Item Details</h3>
+          <p class="form-description">Fields marked with * are required.</p>
+
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="item-type">Report Type *</label>
+              <select id="item-type" name="type" required>
+                <option value="">Select type</option>
+                <option value="Lost">I lost an item</option>
+                <option value="Found">I found an item</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="item-category">Category *</label>
+              <select id="item-category" name="category" required>
+                <option value="">Select category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="ID Cards">ID Cards</option>
+                <option value="Books & Notes">Books & Notes</option>
+                <option value="Bags">Bags</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Keys">Keys</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-field full-width">
+              <label for="item-name">Item Name *</label>
+              <input
+                type="text"
+                id="item-name"
+                name="name"
+                maxlength="100"
+                placeholder="e.g. Black wallet, scientific calculator"
+                required
+              >
+            </div>
+
+            <div class="form-field full-width">
+              <label for="item-description">Description *</label>
+              <textarea
+                id="item-description"
+                name="description"
+                rows="4"
+                maxlength="1000"
+                placeholder="Describe the item, its colour, brand or other identifying details..."
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-field">
+              <label for="item-location">Location *</label>
+              <input
+                type="text"
+                id="item-location"
+                name="location"
+                maxlength="200"
+                placeholder="e.g. Library, Block A"
+                required
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="item-date">Date Lost or Found *</label>
+              <input type="date" id="item-date" name="date" required>
+            </div>
+
+            <!-- Optional photo upload -->
+            <div class="form-field full-width">
+              <label for="item-image">Item Photo (Optional)</label>
+              <input
+                type="file"
+                id="item-image"
+                name="item-image"
+                accept="image/jpeg,image/png,image/webp"
+              >
+              <small>
+                JPG, PNG or WebP. Maximum size: 5 MB.
+              </small>
+
+              <div id="image-preview-container" class="image-preview-container" hidden>
+                <img
+                  id="image-preview"
+                  src=""
+                  alt="Preview of the selected item"
+                >
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="reporter-name">Your Name *</label>
+              <input
+                type="text"
+                id="reporter-name"
+                name="reporter"
+                maxlength="100"
+                placeholder="Enter your name"
+                required
+              >
+            </div>
+
+            <div class="form-field">
+              <label for="reporter-phone">Mobile Number *</label>
+              <input
+                type="tel"
+                id="reporter-phone"
+                name="phone"
+                inputmode="numeric"
+                pattern="[0-9]{10}"
+                minlength="10"
+                maxlength="10"
+                placeholder="10-digit mobile number"
+                title="Enter a 10-digit Indian mobile number"
+                required
+              >
+            </div>
+
+            <div class="form-field full-width">
+              <label for="reporter-email">Email Address *</label>
+              <input
+                type="email"
+                id="reporter-email"
+                name="email"
+                maxlength="254"
+                placeholder="you@example.com"
+                required
+              >
+            </div>
+          </div>
+
+          <button type="submit" id="submit-report" class="button submit-button">
+            Submit Report
+          </button>
+
+          <p class="form-footnote">
+            By submitting, you agree to share the report details
+            with people viewing CampusFind.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section how-section" id="how-it-works">
+      <div class="container">
+        <div class="section-heading centered">
+          <span class="eyebrow">SIMPLE AND HELPFUL</span>
+          <h2>How CampusFind Works</h2>
+          <p>Three simple steps to reconnect people with their belongings.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-number">01</div>
+            <div class="step-icon">📝</div>
+            <h3>Submit a Report</h3>
+            <p>Describe the lost or found item and add a photo if available.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">02</div>
+            <div class="step-icon">🔍</div>
+            <h3>Search Reports</h3>
+            <p>Browse reports and compare the details to identify a matching item.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">03</div>
+            <div class="step-icon">🤝</div>
+            <h3>Reconnect</h3>
+            <p>Contact the reporter and verify ownership before returning the item.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section contact-section" id="contact">
+      <div class="container contact-container">
+        <div>
+          <span class="eyebrow">GET IN TOUCH</span>
+          <h2>Questions about CampusFind?</h2>
+          <p>
+            Contact the project creator if you experience a website
+            issue or have suggestions.
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-avatar">A</div>
+          <div class="contact-details">
+            <h3>Abhinav</h3>
+            <p>CampusFind Project Creator</p>
+
+            <a href="mailto:kadiyalabhinav@gmail.com">
+              📧 kadiyalabhinav@gmail.com
+            </a>
+
+            <a href="tel:+919494398299">
+              📞 +91 94943 98299
+            </a>
+
+            <a
+              href="https://wa.me/919494398299"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              💬 Contact on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <a href="#home" class="logo footer-logo">
+        <span class="logo-icon">C</span>
+        <span>CampusFind</span>
+      </a>
+      <p>Helping campus communities find what matters.</p>
+      <p class="copyright">
+        &copy; <span id="current-year">2026</span> CampusFind. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- Image preview only; actual online upload is handled separately -->
+  <script>
+    const imageInput = document.getElementById("item-image");
+    const previewContainer = document.getElementById("image-preview-container");
+    const imagePreview = document.getElementById("image-preview");
+    let previewObjectUrl = null;
+
+    imageInput.addEventListener("change", function () {
+      const file = this.files && this.files[0];
+
+      if (previewObjectUrl) {
+        URL.revokeObjectURL(previewObjectUrl);
+        previewObjectUrl = null;
+      }
+
+      if (!file) {
+        imagePreview.removeAttribute("src");
+        previewContainer.hidden = true;
+        return;
+      }
+
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+      if (!allowedTypes.includes(file.type)) {
+        alert("Please select a JPG, PNG, or WebP image.");
+        this.value = "";
+        previewContainer.hidden = true;
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        alert("The image must be 5 MB or smaller.");
+        this.value = "";
+        previewContainer.hidden = true;
+        return;
+      }
+
+      previewObjectUrl = URL.createObjectURL(file);
+      imagePreview.src = previewObjectUrl;
+      previewContainer.hidden = false;
+    });
+
+    document.getElementById("current-year").textContent =
+      new Date().getFullYear();
+  </script>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
